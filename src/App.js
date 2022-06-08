@@ -6,6 +6,7 @@ import { Route, Routes } from "react-router-dom";
 import Login from './components/login';
 import Home from './components/home';
 import Register from './components/register';
+import User from './components/user';
 
 class App extends Component {
     state = {}
@@ -14,6 +15,7 @@ class App extends Component {
             <>
                 <Navbar />
                 <Routes>
+                    <Route exact path='/user/:id' element={<User />} />
                     <Route exact path='/users' element={<Users />} />
                     <Route exact path='/' element={<Home />} />
                     <Route exact path='/register' element={<Register />} />
