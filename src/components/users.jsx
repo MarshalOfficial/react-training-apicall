@@ -61,7 +61,7 @@ class Users extends Component {
             email: 'a@gmail.com',
             avatar: 'https://api.torder.ir/Storage/05.jpg'
         };
-        const response = await axios.post('https://reqres.in/api/users', newUser);
+        await axios.post('https://reqres.in/api/users', newUser);
 
         this.setState({ users: [...this.state.users, newUser] });
 
@@ -69,7 +69,7 @@ class Users extends Component {
 
     handleUpdate = async (user) => {
         user.first_name = 'update';
-        const response = await axios.put(`https://reqres.in/api/users/${user.id}`, user);
+        await axios.put(`https://reqres.in/api/users/${user.id}`, user);
 
         const updatedUsers = [...this.state.users];
         const index = updatedUsers.indexOf(user);
@@ -79,7 +79,7 @@ class Users extends Component {
     }
 
     handleDelete = async (user) => {
-        const response = await axios.delete(`https://reqres.in/api/users/${user.id}`);
+        await axios.delete(`https://reqres.in/api/users/${user.id}`);
 
         const newUsers = this.state.users.filter(u => u.id !== user.id);
         this.setState({ users: newUsers });
