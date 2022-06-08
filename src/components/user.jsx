@@ -1,18 +1,20 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
+import queryString from 'query-string';
 
-const User = () => {
+const User = (props) => {
     const { id } = useParams();
+    const location = useLocation();
     const [user, setUser] = useState({});
 
-    useEffect(async function fetch() {
+    console.log(queryString.parse(location.search));
+
+    useEffect(async () => {
         {
             const response = await axios.get(`https://reqres.in/api/users/${id}`);
             setUser(response.data.data);
         }
-        fetch()
-
     }, []);
 
     return (
