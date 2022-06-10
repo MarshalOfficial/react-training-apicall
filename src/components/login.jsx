@@ -1,11 +1,24 @@
 import React, { Component } from 'react';
 
 class Login extends Component {
-    state = {}
+    handleSubmit = (e) => {
+        e.preventDefault();
+
+    }
     render() {
         return (
             <>
-                <h1>Login</h1>
+                <form onSubmit={this.handleSubmit}>
+                    <div className="mb-t">
+                        <label htmlFor='email'>Email</label>
+                        <input id='email' type='text' className='form-control'></input>
+                    </div>
+                    <div className="mb-t">
+                        <label htmlFor='password'>Password</label>
+                        <input id='password' type='text' className='form-control'></input>
+                    </div>
+                    <button className='btn btn-primary'>Login</button>
+                </form>
             </>
         );
     }
