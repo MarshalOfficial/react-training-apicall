@@ -9,20 +9,22 @@ class Login extends Component {
             email: '',
             password: ''
         },
-        errors: []
+        errors: [],
+        sending: false
     }
 
-    schema = yup.object.shape(
-        {
-            email: yup.string().email('فرمت ایمیل صحیح نمی باشد').required('ایمیل اجباری است'),
-            password: yup.string().min(4, 'پسورد حداقل بایستی 4 کاراکتر باشد')
-        }
-    );
+    // schema = yup.object.shape(
+    //     {
+    //         email: yup.string().email('فرمت ایمیل صحیح نمی باشد').required('ایمیل اجباری است'),
+    //         password: yup.string().min(4, 'پسورد حداقل بایستی 4 کاراکتر باشد')
+    //     }
+    // );
 
     validate = async () => {
         try {
-            const result = await this.schema.validate(this.state.account, { abortEarly: false });
-            return result;
+            //const result = await this.schema.validate(this.state.account, { abortEarly: false });
+            //return result;
+            return true;
         } catch (error) {
             console.log(error.errors);
             this.setState({ errors: error.errors });
@@ -33,7 +35,14 @@ class Login extends Component {
         e.preventDefault();
         const result = await this.validate();
         if (result) {
-            const response = await axios.post('https://reqres.in/api/login', result);
+            try {
+                this.setState({ sending: true });
+                const response = await axios.post('https://reqres.in/api/login', result);
+            } catch (error) {
+                this.setState({ errors: ['ایمیل یا پسورد صحیح نمی باشد'] });
+            } finally {
+                this.setState({ sending: false });
+            }
         }
     }
 
@@ -50,7 +59,7 @@ class Login extends Component {
                 <form onSubmit={this.handleSubmit}>
                     <Input name='email' value={this.state.account.email} label='Email' onChange={this.handleChange} />
                     <Input name='password' value={this.state.account.password} label='Password' onChange={this.handleChange} />
-                    <button className='btn btn-primary'>Login</button>
+                    <button disabled={this.state.sending} className='btn btn-primary'>Login</button>
                 </form>
             </>
         );
