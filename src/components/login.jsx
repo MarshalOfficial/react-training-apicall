@@ -1,30 +1,36 @@
-import axios from 'axios';
-import React, { Component, createRef } from 'react';
+import React, { Component } from 'react';
 
 class Login extends Component {
-    email = createRef();
-    password = createRef();
-
+    state = {
+        account: {
+            email: '',
+            password: ''
+        }
+    }
     handleSubmit = async (e) => {
         e.preventDefault();
 
-        const account = { email: this.email.current.value, password: this.password.current.value };
-        if (account.email && account.password) {
-            const response = await axios.post('https://reqres.in/api/login', account);
-            console.log(response);
-        }
+
     }
+
+    handleChange = async (e) => {
+        const input = e.currentTarget;
+        const account = { ...this.state.account };
+        account[input.name] = input.value;
+        this.setState({ account });
+    }
+
     render() {
         return (
             <>
                 <form onSubmit={this.handleSubmit}>
                     <div className="mb-t">
                         <label htmlFor='email'>Email</label>
-                        <input ref={this.email} id='email' type='text' className='form-control'></input>
+                        <input onChange={this.handleChange} value={this.state.account.email} id='email' name='email' type='text' className='form-control'></input>
                     </div>
                     <div className="mb-t">
                         <label htmlFor='password'>Password</label>
-                        <input ref={this.password} id='password' type='text' className='form-control'></input>
+                        <input onChange={this.handleChange} value={this.state.account.password} id='password' name='password' type='text' className='form-control'></input>
                     </div>
                     <button className='btn btn-primary'>Login</button>
                 </form>
