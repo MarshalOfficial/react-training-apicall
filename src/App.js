@@ -8,6 +8,7 @@ import Home from './components/home';
 import Register from './components/register';
 import User from './components/user';
 import NotFound from './components/notFound';
+import Dashboard from './components/dashboard';
 
 class App extends Component {
     state = {}
@@ -20,6 +21,7 @@ class App extends Component {
                     <Route exact path='/users' element={<Users />} />
                     <Route path='/' element={<Home />} />
                     <Route exact path='/register' element={<Register />} />
+                    <Route exact path='/dashboard' element={<Dashboard />} />
                     <Route exact path='/login' element={<Login />} />
                     <Route path='/NotFound' element={<NotFound />} />
                 </Routes>
