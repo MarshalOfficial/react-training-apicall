@@ -9,9 +9,25 @@ import Register from './components/register';
 import User from './components/user';
 import NotFound from './components/notFound';
 import Dashboard from './components/dashboard';
+//import axios from 'axios';
 
 class App extends Component {
-    state = {}
+    state = {
+        user: null,
+    }
+
+    async componentDidMount() {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            this.setState({ user: null });
+            return;
+        }
+
+        //get current user from api
+        // const response = await axios.post("https://reqres.in/api/userbytoken", { token });
+        // this.setState({ user: response.data });
+    }
+
     render() {
         return (
             <>
